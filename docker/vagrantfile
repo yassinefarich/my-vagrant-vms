@@ -1,0 +1,19 @@
+
+
+$box_version = '2004.0.2010'
+
+# Windows Preinstalled Apps
+$script = <<-INSTALL_DOCKER
+
+apk update
+apk add docker
+rc-update add docker boot
+service docker start
+groupadd docker
+usermod -aG docker $USER
+
+INSTALL_DOCKER
+
+Vagrant.configure("2") do |config|
+  config.vm.box = "generic/alpine38"
+end 

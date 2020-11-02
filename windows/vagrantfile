@@ -1,0 +1,25 @@
+# Local windows VM
+
+# Vm Configuration
+$box_version = '2004.0.2010'
+
+# Windows Preinstalled Apps
+$script = <<-PREINSTALLED_APPS
+choco install --yes adobereader notepadplusplus
+PREINSTALLED_APPS
+
+Vagrant.configure("2") do |config|
+
+  # configure Vm provider
+  config.vm.provider "virtualbox" do |v|
+    v.gui = true
+    v.memory = 2048
+    v.cpus = 2
+  end
+
+  # Configure VM
+  config.vm.box = "gusztavvargadr/windows-10"
+  config.vm.box_check_update = false
+  config.vm.provision "shell", inline: $script
+  config.vm.box_version = $box_version
+end
